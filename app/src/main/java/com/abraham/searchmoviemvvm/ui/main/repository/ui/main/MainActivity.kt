@@ -1,4 +1,4 @@
-package com.abraham.searchmoviemvvm.ui.main
+package com.abraham.searchmoviemvvm.ui.main.repository.ui.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.abraham.searchmoviemvvm.ui.main
+package com.abraham.searchmoviemvvm.ui.main.repository.ui.main
 
 import android.arch.lifecycle.ViewModel
 
