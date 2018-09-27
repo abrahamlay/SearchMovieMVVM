@@ -11,7 +11,7 @@ import retrofit2.http.Query
  */
 interface SearchAPI{
     @GET(ApiConfig.SEARCH_PATH)
-    abstract fun searchUsers(@Query("api_key") apiKey: String,
+    fun searchUsers(@Query("api_key") apiKey: String,
                              @Query("language") lang: String,
                              @Query("page") page: Int,
                              @Query("query") query: String): Observable<SearchResult>

@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.abraham.searchmoviemvvm.R
+import com.abraham.searchmoviemvvm.ui.main.repository.model.ResultsItem
+import com.abraham.searchmoviemvvm.ui.main.repository.ui.main.MainAdapter
 import com.abraham.searchmoviemvvm.ui.main.repository.ui.main.MainViewModel
 import com.abraham.searchmoviemvvm.ui.main.repository.ui.widget.EmptyViewHolder
 import com.abraham.searchmoviemvvm.ui.main.repository.util.api.ApiConfig
@@ -19,9 +21,9 @@ import java.net.HttpURLConnection
 /**
  * Created by Abraham on 11/09/2018.
  */
-abstract class BaseListFragment:Fragment(),BaseView<MainViewModel>{
+abstract class BaseListFragment:Fragment(),BaseView{
     protected var adapter: RecyclerView.Adapter<*>? = null
-
+    protected var itemList: List<ResultsItem>?=null
     protected var pageToLoad = 1
 
     protected lateinit var emptyViewHolder: EmptyViewHolder
@@ -49,13 +51,16 @@ abstract class BaseListFragment:Fragment(),BaseView<MainViewModel>{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        itemList= ArrayList()
         initState()
-
     }
 
 
     override fun showProgressBar(active: Boolean) {
-        progress_bar_view.visibility = if (active) View.VISIBLE else View.GONE
+        if(pageToLoad==1){
+            progress_bar_view.visibility = if (active) View.VISIBLE else View.GONE
+            rv_list.visibility = if (active) View.GONE else View.VISIBLE
+        }
     }
 
     override fun showEmpty(message: String?) {
@@ -86,8 +91,7 @@ abstract class BaseListFragment:Fragment(),BaseView<MainViewModel>{
                 }
                 emptyViewHolder.setMessage(errorMessage)
             } else {
-                //                ((MainAdapter) adapter).setMoreDataAvailable(false);
-                adapter!!.notifyDataSetChanged()
+                adapter?.notifyDataSetChanged()
                 if (code == HttpURLConnection.HTTP_FORBIDDEN) {
                     Toast.makeText(context, R.string.error_limit_request, Toast.LENGTH_LONG).show()
                     return
@@ -107,8 +111,7 @@ abstract class BaseListFragment:Fragment(),BaseView<MainViewModel>{
                 setEmptyRvList()
                 emptyViewHolder.showOnTimeout()
             } else {
-                //                ((MainAdapter) adapter).setMoreDataAvailable(false);
-                adapter!!.notifyDataSetChanged()
+                adapter?.notifyDataSetChanged()
                 Toast.makeText(context, R.string.timeout_error, Toast.LENGTH_LONG).show()
             }
         }
@@ -120,8 +123,7 @@ abstract class BaseListFragment:Fragment(),BaseView<MainViewModel>{
                 setEmptyRvList()
                 emptyViewHolder.showOnNetworkError()
             } else {
-                //                ((MainAdapter)adapter).setMoreDataAvailable(false);
-                adapter!!.notifyDataSetChanged()
+                adapter?.notifyDataSetChanged()
                 Toast.makeText(context, R.string.network_error, Toast.LENGTH_LONG).show()
             }
         }

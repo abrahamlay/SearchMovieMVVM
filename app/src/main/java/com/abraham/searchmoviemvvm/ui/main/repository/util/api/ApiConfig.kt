@@ -9,7 +9,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 object ApiConfig {
     val GSON = GsonBuilder()
             .create()
-    const val BASE_URL = "https://api.themoviedb.org/3/"
+    val BASE_URL = "https://api.themoviedb.org/3/"
     const val API_KEY = "e1364e3bc8f9d46c4a09586973081f96"
     const val LANG_SETTINGS = "en-US"
     const val SEARCH_PATH = "search/movie?"

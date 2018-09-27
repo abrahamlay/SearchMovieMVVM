@@ -12,7 +12,7 @@ import java.net.SocketTimeoutException
 /**
  * Created by Abraham on 11/09/2018.
  */
- abstract class CallbackWrapper<T : SearchResult>(private var view: BaseView<Any>) : DisposableObserver<T>() {
+ abstract class CallbackWrapper<T : SearchResult>(private var view: BaseView) : DisposableObserver<T>() {
 
     override fun onNext(t: T) {
         onSuccess(t)
